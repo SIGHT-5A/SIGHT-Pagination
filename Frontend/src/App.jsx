@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import './App.css'
+import Skeleton from 'react-loading-skeleton'
+import 'react-loading-skeleton/dist/skeleton.css'
+import CardSkeleton from '../Component/CardSkeleton';
 
 function App() {
   const [users, setUsers] = useState([]);
@@ -9,10 +12,12 @@ function App() {
   const [totalPages, setTotalPages] = useState(1);
   const [lastPage, setLastPage] = useState(1);
   const [inputPage, setInputPage] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
 
-  const limit = 5;
+  const limit = 6;
 
   useEffect(() => {
+    setIsLoading(true);
     fetch(`http://localhost:2710/users?page=${currentPage}&limit=${limit}`)
       .then((response) => {
         if (!response.ok) {
@@ -24,11 +29,11 @@ function App() {
         setUsers(data.result);
         setLastPage(data.last_available_page);
         setTotalPages(data.next ? data.next.page : currentPage);
+        setIsLoading(false);
       })
       .catch((error) => {
         console.error('Error:', error);
       });
-
   }, [currentPage]);
 
   const handlePageChange = (page) => {
@@ -64,19 +69,32 @@ function App() {
     <div className="App">
       <h1>User Pagination</h1>
       <div className="user-cards">
-        {users.map((user) => (
-          <div style={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            width: '100vw',
-
-          }} key={user.id} className="user-card">
-            <h2 style={{ margin: 10 }}>ID: {user.id}</h2>
-            <p> Name: {user.name}</p>
-          </div>
-        ))}
+        {
+          isLoading ?
+            (
+              <CardSkeleton />
+            ) :
+            (
+              users.map((user) => (
+                <div
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                  }}
+                  key={user.id}
+                  className="user-card"
+                >
+                  <h3 style={{ margin: 10 }}>Name: {user.name}</h3>
+                  <p> Email: {user.email}</p>
+                  <p> Phone No.: {user.phone}</p>
+                  <p> company: {user.company}</p>
+                </div>
+              ))
+            )
+        }
       </div>
+
 
       <div className='searchPage'>
         <form onSubmit={handlePageSearchSubmit}>

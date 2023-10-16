@@ -1,42 +1,52 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+/* Custom Dark Theme Styles */
+.user-cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  padding: 20px;
+  margin: 20px;
+  height: 60vh;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.user-card {
+  background: #0a0a0a; /* Dark card background color */
+  border: 1px solid #252525; /* Darker border color */
+  border-radius: 10px; /* Rounded corners */
+  margin: 10px;
+  padding: 15px;
+  width: 300px;
+  height: 180px;
+  flex-direction: column;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2); /* Slightly stronger shadow */
+  color: #eee; /* Light text color */
+  transition: transform 0.2s ease-in-out; /* Add a transform transition for a subtle hover effect */
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
+.card-skeleton {
+  background: #0a0a0a;
+  width: 300px;
+  height: 180px;
+  border: 1px solid #444;
+  border-radius: 10px;
+  margin: 10px;
+  padding: 15px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s ease-in-out;
+}
+
+.user-card h3 {
+  font-size: 1.5em;
+  margin: 0;
+  color: #7444ff; /* Custom heading color */
+}
+
+.user-card p {
+  margin: 5px 0;
+}
+
+/* Media query for responsive design */
+@media (max-width: 768px) {
+  .user-card {
+    width: 100%;
   }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
 }
